@@ -6,5 +6,17 @@
     "superpowers@claude-plugins-official": false,
     "notion@claude-plugins-official": true
   },
-  "theme": "auto"
+  "theme": "auto",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude-sync/sync.sh push"
+          }
+        ]
+      }
+    ]
+  }
 }
