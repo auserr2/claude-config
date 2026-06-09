@@ -17,6 +17,16 @@
           }
         ]
       }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude-sync/sync.sh pull"
+          }
+        ]
+      }
     ]
   }
 }
