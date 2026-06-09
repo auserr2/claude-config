@@ -1,2 +1,2 @@
 auserr2/trading-bot
-auserr2/trading-bot
+auserr2/trading-platform
