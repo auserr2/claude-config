@@ -1,11 +1,12 @@
 #!/bin/bash
 SYNC_DIR="$HOME/.claude-sync"
 CLAUDE_DIR="$HOME/.claude"
-TOKEN=$(cat "$SYNC_DIR/.token" 2>/dev/null)
 
-PROJECTS=(
-  "$HOME/Desktop/trading-bot|https://$TOKEN@github.com/auserr2/trading-bot.git"
-  "$HOME/Desktop/trading-platform|https://$TOKEN@github.com/auserr2/trading-platform.git"
+# Directories to scan for git repos
+SCAN_DIRS=(
+  "$HOME/Desktop"
+  "$HOME/Documents"
+  "$HOME/projects"
 )
 
 sync_project_push() {
@@ -17,21 +18,17 @@ sync_project_push() {
   git add -A
   git diff --staged --quiet && return
   git commit -m "auto-sync: $(date '+%Y-%m-%d %H:%M')" -q
-  git push -q 2>/dev/null || git push origin HEAD:main -q
+  git push -q 2>/dev/null || git push origin HEAD:main -q 2>/dev/null
 }
 
 sync_project_pull() {
-  local dir="$1" url="$2"
-  if [ ! -d "$dir/.git" ]; then
-    git clone -q "$url" "$dir" 2>/dev/null
-    git -C "$dir" config user.email "sync@claude-config" 2>/dev/null
-    git -C "$dir" config user.name "Claude Sync" 2>/dev/null
-    return
-  fi
+  local dir="$1"
+  [ -d "$dir/.git" ] || return
   git -C "$dir" pull -q 2>/dev/null
 }
 
 push() {
+  # Sync Claude config
   cp "$CLAUDE_DIR/settings.json" "$SYNC_DIR/settings.json" 2>/dev/null
   for mem_dir in "$CLAUDE_DIR/projects"/*/memory; do
     [ -d "$mem_dir" ] || continue
@@ -43,9 +40,12 @@ push() {
   git add -A
   git diff --staged --quiet || { git commit -m "sync: $(date '+%Y-%m-%d %H:%M')" -q && git push origin HEAD:main -q; }
 
-  for entry in "${PROJECTS[@]}"; do
-    IFS='|' read -r dir url <<< "$entry"
-    sync_project_push "$dir"
+  # Push all git repos in scan dirs
+  for scan_dir in "${SCAN_DIRS[@]}"; do
+    [ -d "$scan_dir" ] || continue
+    for dir in "$scan_dir"/*/; do
+      sync_project_push "$dir"
+    done
   done
 }
 
@@ -60,9 +60,12 @@ pull() {
     cp -r "$mem_dir/." "$CLAUDE_DIR/projects/$project/memory/" 2>/dev/null
   done
 
-  for entry in "${PROJECTS[@]}"; do
-    IFS='|' read -r dir url <<< "$entry"
-    sync_project_pull "$dir" "$url"
+  # Pull all git repos in scan dirs
+  for scan_dir in "${SCAN_DIRS[@]}"; do
+    [ -d "$scan_dir" ] || continue
+    for dir in "$scan_dir"/*/; do
+      sync_project_pull "$dir"
+    done
   done
 
   echo "Claude config updated. Re-run any new MCP servers from mcp-setup.sh if needed."
