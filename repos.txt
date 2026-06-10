@@ -4,3 +4,4 @@ auserr2/my-first-project
 auserr2/trading-bot
 auserr2/trading-platform
 auserr2/trading-bot
+auserr2/trading-platform
