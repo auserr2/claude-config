@@ -44,8 +44,8 @@ Result: 0 DALL-E frames used in the "What is ChatGPT?" lesson — all Pillow-ren
 - Video: 2.6 MB, professional look
 - Still missing: real avatar, only 7 scene changes in 143s (should be more frequent)
 
-**Outstanding Issues:**
-1. Script comes out too short (~400 words instead of 800+) — need to tune script length guidance
-2. Scene planner sometimes generates generic step text instead of script-specific content
-3. No real avatar — still just static frames
-4. Only 7 visual changes for 143 seconds — should aim for change every 15-20s (9-10 changes)
+**Length + Visual Density Fixes (June 11, 2026, later session):**
+1. ~~Script too short~~ FIXED: `config.py` MIN_SCRIPT_WORDS=850/MAX=1150; new `tools/script_metrics.py` (shared word count, used by orchestrator gate + qa_agent); orchestrator length gate is programmatic (Python counts, never the LLM); `script_revision_agent.py` gets an expansion mode via `critique["length_issue"]` (more examples/steps, never longer sentences); prompts/script.md + templates/script_format.md durations raised to sum 360-460s with explicit 850-1100 word target.
+2. ~~Generic scene text~~ FIXED: scene_planner max_tokens 4000→8000, one JSON retry before heuristic fallback (fallback now logs a warning and derives titles/subtitles from actual script sentences), prompt rules require scene_data to quote actual script text.
+3. No real avatar — still open, static frames only.
+4. ~~Too few visual changes~~ FIXED: PLANNER_SYSTEM targets 12-16s segments with min-scene formula (words/2.3/16); plan_scenes injects "AT LEAST {min_scenes} segments"; `video_agent._split_long_scenes()` hard-guarantees no frame exceeds 20s by splitting per-type (step cards split steps, ui_mockup does a truncated→full reveal, others become key_concept) with zero extra LLM/DALL-E calls.
