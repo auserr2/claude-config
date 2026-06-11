@@ -1,12 +1,5 @@
 {
   "model": "sonnet",
-  "enabledPlugins": {
-    "context7@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": false,
-    "notion@claude-plugins-official": true
-  },
-  "theme": "auto",
   "hooks": {
     "Stop": [
       {
@@ -28,5 +21,12 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": false,
+    "notion@claude-plugins-official": true
+  },
+  "theme": "auto"
 }
