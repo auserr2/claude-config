@@ -47,6 +47,11 @@ User: "UI 1000x better, like an actual video; content should teach ChatGPT itsel
 
 **Host interstitials (June 12, 2026):** The guide now HOSTS the lesson — `avatar3d_builder.get_interstitial(section)` renders a ~3s full-content-region scene (big robot animating beside the section title on navy gradient, INTERSTITIAL_SPEC maps section→animation/kicker/label, cached in assets/avatar3d/interstitial_*.mp4). `layout_compositor.make_interstitial_beat()` builds the silent pseudo-beat; inserted at every section boundary in both orchestrator._assemble and offline_assemble.py. Rebuilt "using-chatgpt-to-write-letters-and-emails" (5:03, Brian voice, 5 host interstitials, motion scenes) as the demo of this — that lesson plan originally scored intro 9.0/script 8.8 when gates were alive.
 
+**Continuous avatar contribution + hand-authored lessons (June 12, 2026):**
+- Guide now contributes 24/7: **speech bubble** in the rail "says" each beat's key_phrase (layout_compositor._build_base guide_line param, agenda compacted to fit), plus **per-beat reaction clips** (avatar3d_builder.get_reaction_clip: Yes nod on checklists, No head-shake on scam warnings, ThumbsUp on tips/action, Wave, Idle) — beats carry "reaction" field.
+- Hand-authored lesson plans: beats may carry explicit `template` + `data` + `reaction` + `key_phrase` fields; offline_assemble uses them directly (map_visual short-circuit). prompt_pattern template takes headline/example_label params now.
+- **"Spotting AI Fakes" lesson authored by Claude directly** (no API needed): outputs/spotting-ai-fakes/, 14 beats, 4:54 — deepfake photo tells, video tells, voice-clone scam script, hang-up-call-back defense, family safe word, Pause/Verify/Call back pattern. First non-LLM-topic, non-senior-specific lesson.
+
 **BLOCKER (June 12, 2026):** OpenAI API account out of credit (insufficient_quota, billing) AND ANTHROPIC_API_KEY= line in .env is empty. No LLM = no new lesson plans, no critic gates. User must top up OpenAI or paste an Anthropic key (then set LLM_BACKEND=anthropic). LLM_BACKEND currently "openai".
 
 **Gotchas:**
