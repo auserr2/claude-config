@@ -45,6 +45,8 @@ User: "UI 1000x better, like an actual video; content should teach ChatGPT itsel
 - **`offline_assemble.py <slug>`** — builds a video from an existing 02_lesson_plan.json with ZERO LLM calls (Edge TTS + deterministic hint→template mapping). Must call tts_client.validate_free_fallback() first or generate_audio dead-ends on exhausted ElevenLabs. Used to ship the flagship lesson ungated.
 - **Flagship lesson shipped (ungated)**: "Getting started with ChatGPT" 4:58, 20 beats — title card, 5 interface tours, 2 prompt patterns, 3 demos+close-ups, callout recap. Gates skipped: intro 8.5 PASS, script 7.6 last scored.
 
+**Host interstitials (June 12, 2026):** The guide now HOSTS the lesson — `avatar3d_builder.get_interstitial(section)` renders a ~3s full-content-region scene (big robot animating beside the section title on navy gradient, INTERSTITIAL_SPEC maps section→animation/kicker/label, cached in assets/avatar3d/interstitial_*.mp4). `layout_compositor.make_interstitial_beat()` builds the silent pseudo-beat; inserted at every section boundary in both orchestrator._assemble and offline_assemble.py. Rebuilt "using-chatgpt-to-write-letters-and-emails" (5:03, Brian voice, 5 host interstitials, motion scenes) as the demo of this — that lesson plan originally scored intro 9.0/script 8.8 when gates were alive.
+
 **BLOCKER (June 12, 2026):** OpenAI API account out of credit (insufficient_quota, billing) AND ANTHROPIC_API_KEY= line in .env is empty. No LLM = no new lesson plans, no critic gates. User must top up OpenAI or paste an Anthropic key (then set LLM_BACKEND=anthropic). LLM_BACKEND currently "openai".
 
 **Gotchas:**
