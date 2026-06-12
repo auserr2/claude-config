@@ -23,6 +23,17 @@ Supersedes the [[content-factory-v2-quality-pipeline]] flow (V2's orchestrator/s
 
 **Verified working (June 11, 2026):** "Asking ChatGPT for recipe ideas" APPROVED on all 5 gates — hook 8.5, script 9.2, visual 8.5, voice 8.7, educational 9.1. 19 beats, 4:05 video, 3 typing demos + response close-ups.
 
+## V3.1 Professional Course Edition (June 11-12, 2026)
+User repositioned: professional course lesson, NOT YouTube-style. Changes:
+- **3D robot guide** replaces DALL-E avatar: CC0 three.js RobotExpressive GLB, re-tinted AI4Seniors teal (material "Main" → 0x2aada4), rendered via three.js+Playwright (`tools/avatar3d_builder.py`, GLB embedded as data URI — Chromium blocks file:// fetch). Section-aware animation clips: Wave (welcome) / Idle (main) / ThumbsUp (recap, action), cached in assets/avatar3d/, composited as looping overlay (-stream_loop -1).
+- **Hook system removed** → `sub_agents/intro_agent.py` writes "Welcome to AI4Seniors..." formula (topic, coverage, why it matters, outcome). Clickbait = hard fail at the Introduction gate.
+- **ElevenLabs default voice**: narrator locked = **Alice "Clear, Engaging Educator"** (Xb7hH8MSUJpSbSDYk0k2), scored 9.14/10 by Senior Listener Agent (gpt-audio model listening to real samples; audio-first content order + retry needed, model sometimes replies "please play the audio"). Cached in assets/voice_selection.json. Hard filter excludes broadcaster/announcer/creator names per user rule.
+- **Six gates** ≥8: introduction, script, visual, voice, avatar, educational. V3.1 verified APPROVED: "Using ChatGPT to write letters and emails" — intro 9.0, script 8.9, visual 8.5, voice 8.9, avatar 8.0, educational 9.1. Routed revision proven live (visual 7.5→8.5 after re-planning only the 3 flagged beats).
+
+**Gotchas:**
+- **ElevenLabs free tier = 10k chars/month, resets July 12 2026.** A lesson costs 4-6k chars. Quota exhausted June 11; pipeline detects (<6000 left) and falls back loudly to OpenAI gpt-4o-mini-tts. User should upgrade (Starter $5/30k or Creator $22/100k) to narrate with Alice.
+- Avatar rubric calibration: score against the user's stated FAIL conditions (artificial/creepy/childish/inconsistent), not "exceptional" — a consistent mascot doing its job is an 8.
+
 **Hard-won debugging lessons:**
 - LLM reviewers PARROT example scores from their prompt templates (every review returned exactly 7.5/7.0 until score fields became `<your score>` placeholders with "score independently, one-decimal precision" instructions).
 - Vision review of sampled stills can't see animation — sample at 75% through segments and tell the production reviewer demo beats are animated, or demos get flagged "static."
