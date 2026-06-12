@@ -21,6 +21,15 @@ Supersedes the [[content-factory-v2-quality-pipeline]] flow (V2's orchestrator/s
 4. **Layout compositor** (`tools/layout_compositor.py`) — YouTube-style: content region 1400x788 at (40,80), guide avatar card right column (HeyGen drop-in slot), section label, progress bar. Per-beat MP4 segments concat'd. Avatar: DALL-E instructor cached at assets/avatar/instructor.png, Pillow mascot fallback.
 5. **Video Critic** (`agents/video_critic_agent.py`) — reviewers: engagement, educational, senior_accessibility (vision on sampled frames), production (vision). Five gates ≥8/10: hook, script (pre-production, max 3 loops) + visual, voice, educational (post-assembly, max 2 loops, routed revision). Hard NOT APPROVED verdict — no proceed-anyway.
 
+**Verified working (June 11, 2026):** "Asking ChatGPT for recipe ideas" APPROVED on all 5 gates — hook 8.5, script 9.2, visual 8.5, voice 8.7, educational 9.1. 19 beats, 4:05 video, 3 typing demos + response close-ups.
+
+**Hard-won debugging lessons:**
+- LLM reviewers PARROT example scores from their prompt templates (every review returned exactly 7.5/7.0 until score fields became `<your score>` placeholders with "score independently, one-decimal precision" instructions).
+- Vision review of sampled stills can't see animation — sample at 75% through segments and tell the production reviewer demo beats are animated, or demos get flagged "static."
+- Demo animations must finish by ~70% of the beat so the full response holds on screen (was getting cut mid-word).
+- Only the "typing" demo_phase gets a live demo; response → annotated screenshot close-up; before/after → cards. Forcing all 4 phases into demos made repetitive clips.
+- DALL-E images banned entirely — critic flagged them as "abstract filler" every single time.
+
 **Key facts:**
 - ELEVENLABS_API_KEY line in .env is EMPTY — voice falls back to OpenAI gpt-4o-mini-tts (voice "nova" + warmth instructions in tools/tts_client.py). User should paste a real ElevenLabs key for best narration (~$0.70-0.90/lesson vs $0.08).
 - User chose: HeyGen avatar only if an API key exists (none does) → illustrated guide for now; build all phases at once (no checkpoints).
