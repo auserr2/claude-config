@@ -37,6 +37,16 @@ User feedback: avatar not contributing, voice robotic (was hearing OpenAI fallba
 - **Anti-redundancy**: storytelling hard rules (every beat adds NEW info, examples must teach different techniques, recap = 3 fresh takeaways); engagement reviewer penalizes redundancy HARD; visual variety rule (max 2 consecutive same type, "after" beats never a third screenshot).
 - Verified APPROVED first-pass, no revision loops: "Using ChatGPT to plan healthy meals" — intro 9.2, script 8.4, visual 8.4, voice 8.7, avatar 8.2, educational 9.3. Sonia at 131 wpm.
 
+## V3.3 (June 12, 2026) — motion-visual engine, flagship lesson
+User: "UI 1000x better, like an actual video; content should teach ChatGPT itself (controls + prompting), not dietary topics; better voice."
+- **`tools/html_visuals.py`** — every beat is now an animated HTML scene recorded by Playwright (1456x819): title_card (navy gradient opener), key_concept (drawn underline), step_list (steps appear one by one), callout (tip/caution), **interface_tour** (ChatGPT replica + moving spotlight dimming all but one control: message_box/send_button/new_chat/sidebar/chat_area), **prompt_pattern** ("how to ask" chips + typed example), demo (restyled chat). Stills get Ken Burns zoompan in the compositor. Visual director maps legacy types onto these; first beat always title_card.
+- **Voice round 2**: en-US-BrianMultilingualNeural (Edge, 9.06/10, warm male) replaces Sonia. Samples in assets/voice_samples_edge2/.
+- Storytelling has explicit getting-started structure: what-it-is beat → control tour beats (visual_hint "interface tour: X") → prompt formula beats ("prompt pattern: ...") → one worked demo; stay general-purpose.
+- **`offline_assemble.py <slug>`** — builds a video from an existing 02_lesson_plan.json with ZERO LLM calls (Edge TTS + deterministic hint→template mapping). Must call tts_client.validate_free_fallback() first or generate_audio dead-ends on exhausted ElevenLabs. Used to ship the flagship lesson ungated.
+- **Flagship lesson shipped (ungated)**: "Getting started with ChatGPT" 4:58, 20 beats — title card, 5 interface tours, 2 prompt patterns, 3 demos+close-ups, callout recap. Gates skipped: intro 8.5 PASS, script 7.6 last scored.
+
+**BLOCKER (June 12, 2026):** OpenAI API account out of credit (insufficient_quota, billing) AND ANTHROPIC_API_KEY= line in .env is empty. No LLM = no new lesson plans, no critic gates. User must top up OpenAI or paste an Anthropic key (then set LLM_BACKEND=anthropic). LLM_BACKEND currently "openai".
+
 **Gotchas:**
 - **ElevenLabs free tier = 10k chars/month, resets July 12 2026.** A lesson costs 4-6k chars. Quota exhausted June 11; pipeline detects (<6000 left) and falls back loudly to OpenAI gpt-4o-mini-tts. User should upgrade (Starter $5/30k or Creator $22/100k) to narrate with Alice.
 - Avatar rubric calibration: score against the user's stated FAIL conditions (artificial/creepy/childish/inconsistent), not "exceptional" — a consistent mascot doing its job is an 8.
