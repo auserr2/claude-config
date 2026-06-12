@@ -30,6 +30,13 @@ User repositioned: professional course lesson, NOT YouTube-style. Changes:
 - **ElevenLabs default voice**: narrator locked = **Alice "Clear, Engaging Educator"** (Xb7hH8MSUJpSbSDYk0k2), scored 9.14/10 by Senior Listener Agent (gpt-audio model listening to real samples; audio-first content order + retry needed, model sometimes replies "please play the audio"). Cached in assets/voice_selection.json. Hard filter excludes broadcaster/announcer/creator names per user rule.
 - **Six gates** ≥8: introduction, script, visual, voice, avatar, educational. V3.1 verified APPROVED: "Using ChatGPT to write letters and emails" — intro 9.0, script 8.9, visual 8.5, voice 8.9, avatar 8.0, educational 9.1. Routed revision proven live (visual 7.5→8.5 after re-planning only the 3 flagged beats).
 
+## V3.2 (June 12, 2026) — free voice, agenda layout, anti-redundancy
+User feedback: avatar not contributing, voice robotic (was hearing OpenAI fallback), UI mid, content redundant. Changes:
+- **Edge neural TTS as the free narrator tier** (`pip install edge-tts`, no key/quota): provider chain = ElevenLabs (quota≥6k) > Edge > OpenAI. Narrator: **en-GB-SoniaNeural at -8% rate, scored 9.06/10** by Senior Listener (vs Alice 9.14 paid). Constants in tools/tts_client.py (EDGE_VOICE/EDGE_RATE).
+- **Layout v2**: right rail = live "Lesson outline" agenda (teal checks done / navy pill current / hollow upcoming, AGENDA list in layout_compositor.py); guide shrunk to 220px corner card; content region 1456x819 (demo recorder matches).
+- **Anti-redundancy**: storytelling hard rules (every beat adds NEW info, examples must teach different techniques, recap = 3 fresh takeaways); engagement reviewer penalizes redundancy HARD; visual variety rule (max 2 consecutive same type, "after" beats never a third screenshot).
+- Verified APPROVED first-pass, no revision loops: "Using ChatGPT to plan healthy meals" — intro 9.2, script 8.4, visual 8.4, voice 8.7, avatar 8.2, educational 9.3. Sonia at 131 wpm.
+
 **Gotchas:**
 - **ElevenLabs free tier = 10k chars/month, resets July 12 2026.** A lesson costs 4-6k chars. Quota exhausted June 11; pipeline detects (<6000 left) and falls back loudly to OpenAI gpt-4o-mini-tts. User should upgrade (Starter $5/30k or Creator $22/100k) to narrate with Alice.
 - Avatar rubric calibration: score against the user's stated FAIL conditions (artificial/creepy/childish/inconsistent), not "exceptional" — a consistent mascot doing its job is an 8.
