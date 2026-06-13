@@ -52,6 +52,17 @@ User: "UI 1000x better, like an actual video; content should teach ChatGPT itsel
 - Hand-authored lesson plans: beats may carry explicit `template` + `data` + `reaction` + `key_phrase` fields; offline_assemble uses them directly (map_visual short-circuit). prompt_pattern template takes headline/example_label params now.
 - **"Spotting AI Fakes" lesson authored by Claude directly** (no API needed): outputs/spotting-ai-fakes/, 14 beats, 4:54 — deepfake photo tells, video tells, voice-clone scam script, hang-up-call-back defense, family safe word, Pause/Verify/Call back pattern. First non-LLM-topic, non-senior-specific lesson.
 
+## V3.4 Remotion migration (June 13, 2026)
+Rendering layer moved to **Remotion** (React→video) at `ai4seniors-content-factory/my-video/` (Node 24, remotion 4.0.477, tailwind-v4). Replaces the Playwright-screen-record + ffmpeg-concat hack with one frame-accurate React render pass.
+- `src/Avatar.tsx` — mascot rebuilt as frame-driven React SVG (mouth via Math.sin(frame), blink, wave/nod/shake/thumbsup); finally truly in sync.
+- `src/scenes.tsx` — TitleCard/KeyConcept/StepList/Callout/PromptPattern with spring entrances + typewriter.
+- `src/Layout.tsx` — chrome (content panel, live agenda rail, navy speech bubble showing each beat's keyPhrase, avatar card, progress bar) + Interstitial (guide takes over full-screen per section).
+- `src/Lesson.tsx` + `Root.tsx` — Sequences each beat with <Audio staticFile>; calculateMetadata auto-computes duration from per-beat frames; 1920x1080@30.
+- `remotion_props.py <slug>` — bridge: ensures Edge per-beat audio, ffprobes durations, copies mp3s to my-video/public/audio/<slug>/, writes public/props/<slug>.json. Render: `cd my-video && npx remotion render Lesson ../outputs/<slug>/video/lesson_remotion.mp4 --props=public/props/<slug>.json`. NEVER run `npm run dev` (never-exiting Studio server) — use `render`/`still`.
+- Verified: outputs/spotting-ai-fakes/video/lesson_remotion.mp4 (4:55, h264+aac, 22.7MB, Brian Edge voice).
+- `ui-ux-pro-max` skill now available (loaded via Cursor) — designs React/Tailwind, point it at scenes.tsx/Layout.tsx to restyle.
+- Old Python renderer (html_visuals.py + layout_compositor.py + offline_assemble.py) still present in parallel; retire once Remotion is confirmed the default.
+
 **BLOCKER (June 12, 2026):** OpenAI API account out of credit (insufficient_quota, billing) AND ANTHROPIC_API_KEY= line in .env is empty. No LLM = no new lesson plans, no critic gates. User must top up OpenAI or paste an Anthropic key (then set LLM_BACKEND=anthropic). LLM_BACKEND currently "openai".
 
 **Gotchas:**
