@@ -63,7 +63,17 @@ Rendering layer moved to **Remotion** (React→video) at `ai4seniors-content-fac
 - `ui-ux-pro-max` skill now available (loaded via Cursor) — designs React/Tailwind, point it at scenes.tsx/Layout.tsx to restyle.
 - Old Python renderer (html_visuals.py + layout_compositor.py + offline_assemble.py) still present in parallel; retire once Remotion is confirmed the default.
 
-**BLOCKER (June 12, 2026):** OpenAI API account out of credit (insufficient_quota, billing) AND ANTHROPIC_API_KEY= line in .env is empty. No LLM = no new lesson plans, no critic gates. User must top up OpenAI or paste an Anthropic key (then set LLM_BACKEND=anthropic). LLM_BACKEND currently "openai".
+## V4 in progress (June 13, 2026) — NVIDIA-powered, custom 3D guide
+User reframed the avatar as the central instructor/face of AI4Seniors; provided a real NVIDIA key (in .env, gitignored). Decisions: custom Blender robot, Rhubarb lip-sync now / Audio2Face later, voice settled by evaluation.
+- **NVIDIA LLM/VLM backend LIVE** (`tools/llm_client.py`): LLM_BACKEND=nvidia, OpenAI-compatible `integrate.api.nvidia.com/v1`, text=`meta/llama-3.3-70b-instruct`, vision=`meta/llama-3.2-90b-vision-instruct` for call_with_images. **This un-blocks all agents + critics for free** (OpenAI still out of credit, Anthropic empty — no longer matters).
+- **NVIDIA Magpie TTS integrated** (`tools/tts_client.py`): Riva gRPC, function-id `877104f7-e885-42b9-8de8-f6e4c6303969`, voices Magpie-Multilingual.EN-US.Sofia/Aria. TTS_PROVIDER env switch (edge|magpie|elevenlabs). Free, no cap.
+- **Voice Evaluation Report** at outputs/_voice_eval/ + 4 ear-test samples (magpie_sofia/aria, edge_brian/sonia). NOTE: audio-listening judge (gpt-audio) is out of credit so warmth scoring deferred to human ear. Default stays Edge Brian (verified 9.06); Magpie Sofia is the NVIDIA option pending ear-test. `sub_agents/voice_research_agent.py`.
+- **Custom AI4Seniors Guide robot** built in Blender 5.1.2 (`tools/blender_robot.py`, scripted from primitives): cohesive friendly teal/navy mascot, named parts (Head/Eyelid_L|R/Pupil_L|R/Mouth/Arm_R/Antenna_Tip) for per-frame posing. Exported `assets/avatar_v4/ai4seniors_guide.glb` + preview.png. First pass floated apart; fixed with neck + tightened coordinates → looks good.
+- Blender installed via brew (`/Applications/Blender.app`, v5.1.2). nvidia-riva-client pip-installed.
+
+**V4 REMAINING:** @remotion/three avatar layer driving the GLB per-frame + Rhubarb lip-sync (#27); scene-based Remotion redesign w/ TransitionSeries (#28); 5 quality gates incl UI/UX-Pro gate + flagship render (#29).
+
+**OLD BLOCKER (June 12, 2026, now moot — NVIDIA backend replaces both):** OpenAI API account out of credit (insufficient_quota, billing) AND ANTHROPIC_API_KEY= line in .env is empty. No LLM = no new lesson plans, no critic gates. User must top up OpenAI or paste an Anthropic key (then set LLM_BACKEND=anthropic). LLM_BACKEND currently "openai".
 
 **Gotchas:**
 - **ElevenLabs free tier = 10k chars/month, resets July 12 2026.** A lesson costs 4-6k chars. Quota exhausted June 11; pipeline detects (<6000 left) and falls back loudly to OpenAI gpt-4o-mini-tts. User should upgrade (Starter $5/30k or Creator $22/100k) to narrate with Alice.
