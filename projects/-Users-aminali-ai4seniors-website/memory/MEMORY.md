@@ -5,3 +5,4 @@
 - [Video Course (8-lesson pivot)](project_video_series.md) — Pivoted from senior series to general-beginner 8-lesson course; 5-agent pipeline in .claude/agents/; old content deleted; Lesson 1 dossier+outline done, awaiting approval; CLAUDE.md now stale
 - [Website Audit & P0+P1 Implementation](project_website_audit_june2025.md) — Fonts, security headers, skip link, a11y fixes, copy rewrite, reduced-motion hardening, 0 npm vulns; Spline rejected
 - [Light-First Redesign](project_redesign_lightfirst.md) — redesign-experiment branch; stable-site restore point; teal-700 (#0F766E) contrast rule; CSS-only entrance; 12 vs 9 lesson count open
+- [Remotion Lesson Production](project_remotion_lesson_production.md) — self-contained Remotion project at production/remotion/; data-driven lesson templates; Lesson 1 validates pipeline (typecheck + compositions pass, no assets); placeholders for unbuilt scenes
