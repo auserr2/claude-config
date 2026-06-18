@@ -11,7 +11,7 @@ metadata:
 
 **Why:** User explicitly restructured the project; the senior-specific tone was dropped.
 
-**How to apply:** Use the new audience/voice above, not the old senior rules. Note: `CLAUDE.md` still describes the OLD senior framing (9 episodes, 15-words/sentence, forbidden-terms table) and now CONTRADICTS the live direction — flag this; it needs updating before treating it as authoritative.
+**How to apply:** Use the new audience/voice above for CONTENT. `CLAUDE.md` and `COURSE_ROADMAP.md` are now both updated to the 8-lesson course (the old 9-episode contradiction is resolved). For the WEBSITE, the user chose **seniors-first, beginner-friendly**: the AI4Seniors brand + senior-first design stays, content is welcoming to any beginner. So website framing (seniors-first) differs slightly from the content-doc framing (general beginners) — intentional.
 
 ## New course (8 lessons, ~60 min, ~6–8 min each)
 1 What Is AI? · 2 AI Is Already Around You · 3 What AI Can and Cannot Do · 4 AI Scams and Warning Signs · 5 Deepfakes and Fake Content · 6 Privacy and Digital Safety · 7 What Is ChatGPT? · 8 Using AI in Everyday Life
@@ -29,4 +29,5 @@ research-agent → script-agent → qa-agent → project-manager-agent (presents
 ## Status as of 2026-06-17
 - Old 9-episode senior content (scripts/, graphics_prompts/, companion_sheets/) DELETED — recoverable from git snapshot `5c3f029`.
 - Lesson 1: dossier ✓ (`research/lesson-01-what-is-ai.md`), script OUTLINE ✓ (`scripts/lesson-01-what-is-ai.md`) — awaiting user approval before full draft.
+- WEBSITE aligned to the 8 lessons (CoursePage + homepage/about/metadata; all "Coming soon", no video URLs yet). README rewritten to 8-lesson; `AI4SENIORS_WEBSITE_DESIGN_SYSTEM.md` marked SUPERSEDED → see new `DESIGN_REVIEW.md`. Website details in [[project-redesign-lightfirst]].
 - Research gotcha: don't lock specific stats (Pew %, ChatGPT user counts) without refreshing the source first.

@@ -17,4 +17,6 @@ Done: light flip across all pages + new light homepage hero (step 1); homepage t
 
 Homepage entrance is **CSS-only** (`.rise` classes in globals.css, gated by `prefers-reduced-motion: no-preference`) — not framer-motion `initial opacity:0` — so content is visible without JS.
 
-Open decisions for the user: (1) canonical lesson count — CLAUDE.md says 9 episodes, the live Course page lists **12** per user instruction; (2) Course lessons show "Coming soon" with no Watch button until a real video `href` is added to the `lessons` array in `components/CoursePage.tsx`. Related: [[project_website_audit_june2025]].
+RESOLVED (2026-06-17): canonical curriculum is the **8-lesson course** in `COURSE_ROADMAP.md` (not 9, not the interim 12). Website Course page + homepage/about/metadata aligned to those 8. Audience = **seniors-first, beginner-friendly** (AI4Seniors brand kept). Item 6 cleanup done: 10 unused components, 7 deps removed; `components/ui/` + `lib/` gone; light-only (dark mode removed). Authoritative website doc is now **`DESIGN_REVIEW.md`**; old `AI4SENIORS_WEBSITE_DESIGN_SYSTEM.md` marked SUPERSEDED.
+
+Still open: (1) Course lessons stay "Coming soon" until a real video `href` is added per lesson in `components/CoursePage.tsx`; (2) CSP in `next.config.mjs` still has stale Spline allowances to prune. Related: [[project-video-series]], [[project_website_audit_june2025]].
