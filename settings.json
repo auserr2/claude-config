@@ -28,5 +28,6 @@
     "superpowers@claude-plugins-official": false,
     "notion@claude-plugins-official": true
   },
-  "theme": "auto"
+  "theme": "auto",
+  "enableWorkflows": true
 }
