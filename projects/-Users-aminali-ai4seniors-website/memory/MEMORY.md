@@ -6,3 +6,4 @@
 - [Website Audit & P0+P1 Implementation](project_website_audit_june2025.md) — Fonts, security headers, skip link, a11y fixes, copy rewrite, reduced-motion hardening, 0 npm vulns; Spline rejected
 - [Light-First Redesign](project_redesign_lightfirst.md) — redesign-experiment branch; stable-site restore point; teal-700 (#0F766E) contrast rule; CSS-only entrance; 12 vs 9 lesson count open
 - [Remotion Lesson Production](project_remotion_lesson_production.md) — self-contained Remotion project at production/remotion/; data-driven lesson templates; Lesson 1 validates pipeline (typecheck + compositions pass, no assets); placeholders for unbuilt scenes
+- [Richer, not bare](feedback_richer_not_bare.md) — user found bare-minimal site boring/"AI slop"; wants richer-but-calm UI (hero visual, stat band, cards, footer), keep warm cream+purple/teal
